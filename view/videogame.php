@@ -40,20 +40,31 @@
                     <!-- TODO #1 boucler sur le tableau $videogameList contenant tous les jeux vidéos
                     (et donc supprimer ces 2 lignes d'exemple) -->
                     <!-- --- START OF YOUR CODE --- -->
-                    <tr>
-                        <td>-</td>
-                        <td>Exemple</td>
-                        <td>à faire</td>
-                        <td>depuis</td>
-                        <td>la DB</td>
-                    </tr>
-                    <tr>
-                        <td>-</td>
-                        <td>Les chevaliers de Baphomet</td>
-                        <td>Virgin Interactive</td>
-                        <td>1996-09-24</td>
-                        <td>PC</td>
-                    </tr>
+                    
+                    
+                    <?php foreach ($videogameList as $key => $value) : 
+                        
+                        // On récupere platform_id dans videgame
+                        // le but etant d'afficher le nom de la platforme au lieu de son id
+                        $idMaPlatform = intval($videogameList[$key]['platform_id']);
+
+                        // on récuoére le nom de la platform à partir de son id 
+                        $sql= "select *from `platform` WHERE `id`=$idMaPlatform";
+                        $pdoStatement = $pdo->query($sql);
+                        // et on lance la requete  $maplatform contient le nom de la plateforme
+                        $maPlatorm = $pdoStatement->fetch(PDO::FETCH_ASSOC);?>
+                                           
+                        <tr>
+                            <td><?= $videogameList[$key]['id'] ?></td>
+                            <td><?= $videogameList[$key]['name'] ?></td>
+                            <td><?= $videogameList [$key]['editor'] ?></td>
+                            <td><?= $videogameList [$key]['release_date'] ?></td>
+                            <td><?= $maPlatorm ['name']?></td>
+                           
+                        </tr>
+
+
+                    <?php endforeach; ?>
                     <!-- --- END OF YOUR CODE --- -->
                 </tbody>
                 </table>

@@ -13,6 +13,7 @@ $editor = '';
 $release_date = '';
 $platform = '';
 
+
 // Si le formulaire a été soumis
 if (!empty($_POST)) {
     // Récupération des valeurs du formulaire dans des variables
@@ -24,21 +25,38 @@ if (!empty($_POST)) {
     // TODO #3 (optionnel) valider les données reçues (ex: donnée non vide)
     // --- START OF YOUR CODE ---
 
-
-
-    // --- END OF YOUR CODE ---
+    $name = valid_donnees($_POST["name"]);
+    $editor = valid_donnees($_POST["editor"]);
+    $release_date = valid_donnees($_POST["release_date"]);
+    $platform = valid_donnees($_POST["platform"]);
     
+    
+
+    if (!empty($name)
+         
+        && strlen($name) <= 30
+        && !empty($release_date)
+        //&& valideDate($release_date)
+        && filter_var($platform, FILTER_VALIDATE_INT)
+        && filter_var($platform, FILTER_VALIDATE_INT)){
+
+            // --- END OF YOUR CODE ---
+            echo('test');
     // Insertion en DB du jeu video
-    $insertQuery = "
-        INSERT INTO videogame (name, editor, release_date, platform_id)
-        VALUES ('{$name}', '{$editor}', '{$release_date}', {$platform})
-    ";
+    $insertQuery = ("INSERT INTO `videogame`(`name`, `editor`, `release_date`, `platform_id`)
+    VALUES ('{$name}', '{$editor}', '{$release_date}', {$platform})");
+    
     // TODO #3 exécuter la requête qui insère les données
+
+    $pdo->exec($insertQuery);
+    
     // TODO #3 une fois inséré, faire une redirection vers la page "index.php" (fonction header)
+
     // --- START OF YOUR CODE ---
 
-
-
+    header("location:index.php");    
+    
+    }
 
     // --- END OF YOUR CODE ---
 }
@@ -58,9 +76,10 @@ $platformList = array(
 
 // TODO #1 écrire la requête SQL permettant de récupérer les jeux vidéos en base de données (mais ne pas l'exécuter maintenant)
 // --- START OF YOUR CODE ---
-$sql = '
-    SELECT * ...
-';
+/*Sélectionne toutes les valeurs dans la table users*/
+$sql = $pdo->prepare("SELECT * FROM `videogame`");
+
+
 // --- END OF YOUR CODE ---
 
 // Si un tri a été demandé, on réécrit la requête
@@ -70,23 +89,23 @@ if (!empty($_GET['order'])) {
     if ($order == 'name') {
         // TODO #2 écrire la requête avec un tri par nom croissant
         // --- START OF YOUR CODE ---
-        $sql = '
-            SELECT * ...
-        ';
+        $sql = $pdo->prepare("SELECT * FROM `videogame` ORDER BY `name`");
+        ;
         // --- END OF YOUR CODE ---
     }
     else if ($order == 'editor') {
         // TODO #2 écrire la requête avec un tri par editeur croissant
         // --- START OF YOUR CODE ---
-        $sql = '
-            SELECT * ...
-        ';
+
+        $sql = $pdo->prepare("SELECT * FROM `videogame` ORDER BY `editor`");
+
         // --- END OF YOUR CODE ---
     }
 }
 // TODO #1 exécuter la requête contenue dans $sql et récupérer les valeurs dans la variable $videogameList
 // --- START OF YOUR CODE ---
-
+$sql->execute();
+$videogameList = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 // --- END OF YOUR CODE ---
 
