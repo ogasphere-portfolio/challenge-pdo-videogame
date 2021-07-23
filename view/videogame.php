@@ -23,7 +23,9 @@
                 <a href="index.php?order=editor" class="btn btn-info">Trier par éditeur</a>&nbsp;
                 <!-- TODO #2 (optionnel) n'afficher ce bouton que s'il y a un tri -->
                 <!-- --- START OF YOUR CODE --- -->
+                <?php if (!empty($_GET['order'])) { ?>
                 <a href="index.php" class="btn btn-dark">Annuler le tri</a><br>
+                <?php }; ?>
                 <!-- --- END OF YOUR CODE --- -->
                 <br>
                 <table class="table table-striped">

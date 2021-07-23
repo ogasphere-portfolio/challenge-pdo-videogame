@@ -24,7 +24,7 @@ if (!empty($_POST)) {
     
     // TODO #3 (optionnel) valider les données reçues (ex: donnée non vide)
     // --- START OF YOUR CODE ---
-
+    echo($release_date);
     $name = valid_donnees($_POST["name"]);
     $editor = valid_donnees($_POST["editor"]);
     $release_date = valid_donnees($_POST["release_date"]);
@@ -32,12 +32,14 @@ if (!empty($_POST)) {
     
     
 
-    if (!empty($name)
+    if (!empty($name)   
          
         && strlen($name) <= 30
+        && !empty($editor)
+        && strlen($editor) <= 30
         && !empty($release_date)
         //&& valideDate($release_date)
-        && filter_var($platform, FILTER_VALIDATE_INT)
+        && !empty($platform)
         && filter_var($platform, FILTER_VALIDATE_INT)){
 
             // --- END OF YOUR CODE ---
@@ -64,13 +66,15 @@ if (!empty($_POST)) {
 // Liste des consoles de jeux
 // TODO #4 (optionnel) récupérer cette liste depuis la base de données
 // --- START OF YOUR CODE ---
-$platformList = array(
+/* $platformList = array(
     1 => 'PC',
     2 => 'MegaDrive',
     3 => 'SNES',
     4 => 'PlayStation'
-);
-
+); */
+$getPlatformList= "select * from `platform` ";
+$pdoStatement = $pdo->query($getPlatformList);
+$platformList = $pdoStatement->fetchAll(PDO::FETCH_COLUMN,1);
 
 // --- END OF YOUR CODE ---
 
