@@ -1,0 +1,54 @@
+<h1 id="interface-de-gestion-de-jeux-vidéo">Interface de gestion de jeux vidéo</h1>
+<p>Je souhaite gérer moi-même mon nombre insolent de jeux vidéo en ma possession, et ce, depuis mon premier Tetris sur GameBoy.</p>
+<p>J'ai déjà créé la base de donnée. Mais en fait, je ne sais rien faire d'autre, <em>je comprends rien</em>.</p>
+<p>Un pote connaissant un peu HTML, bootstrap et PHP m'a fourni le code me permettant de gérer mes jeux vidéo. Merci poto 😉</p>
+<p>Cependant, il ne comprend rien à SQL, et il m'a laissé plein de <code>TODO</code> 😱</p>
+<p>Sympas comme vous êtes, vous allez bien me faire fonctionner tout ça ? 😄</p>
+<h2 id="avant-de-coder">Avant de coder</h2>
+<p>Mon pote m'a donné les consignes suivantes à suivre avant de coder :</p>
+<ol>
+<li>créer la base de données <code>videogame</code> sur votre machine (avec le user correspondant)</li>
+<li>importer le fichier <a href="docs/videogame.sql">videogame.sql</a></li>
+</ol>
+<h2 id="fonctionnalités">Fonctionnalités</h2>
+<ol>
+<li>affichage de la liste des jeux vidéo (<code>TODO #1</code>)</li>
+<li>tri de cette liste (<code>TODO #2</code>)</li>
+<li>ajout d'un jeu vidéo (<code>TODO #3</code>)</li>
+<li>liste des plate-formes (consoles de jeu) dynamique (depuis la DB) (<code>TODO #4</code>)</li>
+</ol>
+<h2 id="bonus">Bonus</h2>
+<p>Dans le code, il y a plusieurs parties <em>"optionnelles"</em>. Ce serait top si vous pouviez me les faire, mais bon, ce n'est pas obligatoire 😉</p>
+<h2 id="indices">Indices</h2>
+<p><details><summary>Indices</summary></p>
+<ul>
+<li>ce challenge peut être considéré comme un <em>code "à trou"</em></li>
+<li>donc, avant de coder, il faut bien analyser et comprendre le code existant</li>
+<li>l'astuce, c'est de coder les fonctionnalités les unes après les autres grâce aux <code>TODO #x</code></li>
+</ul>
+<p></details></p>
+<h2 id="spoilers">Spoilers</h2>
+<p><details><summary>Boucle pour afficher les jeux vidéo</summary></p>
+<pre><code class="hljs php language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$videogameList</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$currentRow</span>) : <span class="hljs-meta">?&gt;</span>
+&lt;tr&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+<span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">endforeach</span>; <span class="hljs-meta">?&gt;</span>
+</code></pre>
+<p></details></p>
+<p><details><summary>Boucle pour afficher les jeux vidéo + affichage</summary></p>
+<pre><code class="hljs php language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$videogameList</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$currentRow</span>) : <span class="hljs-meta">?&gt;</span>
+&lt;tr&gt;
+    &lt;td&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$currentRow</span>[<span class="hljs-string">&#x27;id&#x27;</span>] <span class="hljs-meta">?&gt;</span>&lt;/td&gt;
+    &lt;td&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$currentRow</span>[<span class="hljs-string">&#x27;name&#x27;</span>] <span class="hljs-meta">?&gt;</span>&lt;/td&gt;
+    &lt;td&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$currentRow</span>[<span class="hljs-string">&#x27;editor&#x27;</span>] <span class="hljs-meta">?&gt;</span>&lt;/td&gt;
+    &lt;td&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$currentRow</span>[<span class="hljs-string">&#x27;release_date&#x27;</span>] <span class="hljs-meta">?&gt;</span>&lt;/td&gt;
+    &lt;td&gt;<span class="hljs-meta">&lt;?=</span> <span class="hljs-variable">$currentRow</span>[<span class="hljs-string">&#x27;????&#x27;</span>] <span class="hljs-meta">?&gt;</span>&lt;/td&gt;
+&lt;/tr&gt;
+<span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">endforeach</span>; <span class="hljs-meta">?&gt;</span>
+</code></pre>
+<p></details></p>

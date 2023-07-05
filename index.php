@@ -2,6 +2,7 @@
 
 // Inclusion du fichier s'occupant de la connexion à la DB (TODO)
 require __DIR__.'/inc/db.php'; // Pour __DIR__ => http://php.net/manual/fr/language.constants.predefined.php
+require __DIR__.'/inc/fonctions.php';
 // Rappel : la variable $pdo est disponible dans ce fichier
 //          car elle a été créée par le fichier inclus ci-dessus
 
@@ -22,14 +23,12 @@ if (!empty($_POST)) {
     $release_date = isset($_POST['release_date']) ? $_POST['release_date'] : '';
     $platform = isset($_POST['platform']) ? intval($_POST['platform']) : 0;
     
-    // TODO #3 (optionnel) valider les données reçues (ex: donnée non vide)
-    // --- START OF YOUR CODE ---
-    echo($release_date);
+   
     $name = valid_donnees($_POST["name"]);
     $editor = valid_donnees($_POST["editor"]);
     $release_date = valid_donnees($_POST["release_date"]);
     $platform = valid_donnees($_POST["platform"]);
-    
+    $platform++; //on ajoute 1 car la valeur de la plateforme est décalée de 1 dans la base de données
     
 
     if (!empty($name)   
@@ -52,10 +51,7 @@ if (!empty($_POST)) {
 
     $pdo->exec($insertQuery);
     
-    // TODO #3 une fois inséré, faire une redirection vers la page "index.php" (fonction header)
-
-    // --- START OF YOUR CODE ---
-
+  
     header("location:index.php");    
     
     }
@@ -65,7 +61,7 @@ if (!empty($_POST)) {
 
 // Liste des consoles de jeux
 // TODO #4 (optionnel) récupérer cette liste depuis la base de données
-// --- START OF YOUR CODE ---
+
 /* $platformList = array(
     1 => 'PC',
     2 => 'MegaDrive',
@@ -76,15 +72,12 @@ $getPlatformList= "select * from `platform` ";
 $pdoStatement = $pdo->query($getPlatformList);
 $platformList = $pdoStatement->fetchAll(PDO::FETCH_COLUMN,1);
 
-// --- END OF YOUR CODE ---
+
 
 // TODO #1 écrire la requête SQL permettant de récupérer les jeux vidéos en base de données (mais ne pas l'exécuter maintenant)
-// --- START OF YOUR CODE ---
 /*Sélectionne toutes les valeurs dans la table users*/
 $sql = $pdo->prepare("SELECT * FROM `videogame`");
 
-
-// --- END OF YOUR CODE ---
 
 // Si un tri a été demandé, on réécrit la requête
 if (!empty($_GET['order'])) {
