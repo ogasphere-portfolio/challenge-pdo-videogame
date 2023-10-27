@@ -4,11 +4,12 @@
 // et le stocker dans la variable $pdo
 // --- START OF YOUR CODE ---
 
-$servername = 'localhost';
-$username = 'videogame';
-$password = 'videogame';
-$bdd = "videogame";
 
+$configData = parse_ini_file(dirname(__FILE__) . '/config.ini', true);
+$servername = 'localhost';
+$username = $configData['DB_USERNAME'];
+$password = $configData['DB_PASSWORD'];
+$bdd = $configData['DB_NAME'];
 //On essaie de se connecter
 try {
   $pdo = new PDO("mysql:host=$servername;dbname=$bdd", $username, $password);
